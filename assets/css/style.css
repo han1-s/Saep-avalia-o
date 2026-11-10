@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Inter';
-  src: url('/backend/media.php?path=..%2FEstudante%2Fanexos_prova%2Fanexos_prova%2Ffonte%2FInter%2FInter-VariableFont_opsz%2Cwght.ttf') format('truetype');
+  src: url('../fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
 }

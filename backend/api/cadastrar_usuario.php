@@ -62,7 +62,7 @@ if ($stmt->fetch()) {
     jsonResponse(409, ['message' => 'Este nome de usuário já está em uso']);
 }
 
-$imagemPadrao = 'imagens_usuarios/saepVision.jpeg';
+$imagemPadrao = 'assets/img/imagens_usuarios/saepVision.jpeg';
 $insert = $pdo->prepare('INSERT INTO usuarios (nome, nome_usuario, email, senha, imagem_usuario, tipo) VALUES (:nome, :nome_usuario, :email, :senha, :imagem_usuario, :tipo)');
 $insert->execute([
     'nome' => $nome,

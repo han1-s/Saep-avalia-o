@@ -64,7 +64,7 @@ foreach ($rows as $row) {
         'total_curtidas' => (int) $row['total_curtidas'],
         'liked_by_current_user' => (bool) (int) $row['liked_by_current_user'],
         'imagem_url' => buildMediaUrl($row['caminho_imagem']),
-        'perfil_url' => buildMediaUrl($row['imagem_usuario'] ?? 'imagens_usuarios/saepVision.jpeg'),
+        'perfil_url' => buildMediaUrl($row['imagem_usuario'] ?? 'assets/img/imagens_usuarios/saepVision.jpeg'),
         'is_owner' => $userId && (int) $row['id_fotografo'] === (int) $userId,
     ];
 }

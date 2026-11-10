@@ -87,7 +87,7 @@
     }
 
     if (avatar) {
-      const fallback = '/backend/media.php?path=imagens_usuarios/saepVision.jpeg';
+      const fallback = '/backend/media.php?path=assets/img/imagens_usuarios/saepVision.jpeg';
       const photo = user && user.imagem_usuario ? `/backend/media.php?path=${encodeURIComponent(user.imagem_usuario)}` : fallback;
       avatar.src = photo;
     }

@@ -102,14 +102,13 @@ function ensureSqliteSchema(PDO $pdo): void
 
     $count = (int) $pdo->query('SELECT COUNT(*) FROM usuarios')->fetchColumn();
     if ($count === 0) {
-        $support = '../Estudante/anexos_prova/anexos_prova';
         $seed = [
-            [1, 'fotografo1', 'fotografo_1', 'fotografo1@email.com', '123456', $support . '/imagens_usuarios/fotografo1.jpg', 'fotografo'],
-            [2, 'fotografo2', 'fotografo_2', 'fotografo2@gmail.com', '123456', $support . '/imagens_usuarios/fotografo2.jpg', 'fotografo'],
-            [3, 'fotografo3', 'fotografo_3', 'fotografo3@gmail.com', '123456', $support . '/imagens_usuarios/fotografo3.jpg', 'fotografo'],
-            [4, 'usuario1', 'usuario_1', 'usuario1@gmail.com', '123456', $support . '/imagens_usuarios/usuario1.jpg', 'comum'],
-            [5, 'usuario2', 'usuario_2', 'usuario2@gmail.com', '123456', $support . '/imagens_usuarios/usuario2.jpg', 'comum'],
-            [6, 'usuario3', 'usuario_3', 'usuario3@gmail.com', '123456', $support . '/imagens_usuarios/usuario3.jpg', 'comum'],
+            [1, 'fotografo1', 'fotografo_1', 'fotografo1@email.com', '123456', 'assets/img/imagens_usuarios/fotografo1.jpg', 'fotografo'],
+            [2, 'fotografo2', 'fotografo_2', 'fotografo2@gmail.com', '123456', 'assets/img/imagens_usuarios/fotografo2.jpg', 'fotografo'],
+            [3, 'fotografo3', 'fotografo_3', 'fotografo3@gmail.com', '123456', 'assets/img/imagens_usuarios/fotografo3.jpg', 'fotografo'],
+            [4, 'usuario1', 'usuario_1', 'usuario1@gmail.com', '123456', 'assets/img/imagens_usuarios/usuario1.jpg', 'comum'],
+            [5, 'usuario2', 'usuario_2', 'usuario2@gmail.com', '123456', 'assets/img/imagens_usuarios/usuario2.jpg', 'comum'],
+            [6, 'usuario3', 'usuario_3', 'usuario3@gmail.com', '123456', 'assets/img/imagens_usuarios/usuario3.jpg', 'comum'],
         ];
 
         $insert = $pdo->prepare('INSERT INTO usuarios (id_usuario, nome, nome_usuario, email, senha, imagem_usuario, tipo, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, datetime("now"), datetime("now"))');
@@ -120,17 +119,16 @@ function ensureSqliteSchema(PDO $pdo): void
 
     $publicacoesCount = (int) $pdo->query('SELECT COUNT(*) FROM publicacoes')->fetchColumn();
     if ($publicacoesCount === 0) {
-        $support = '../Estudante/anexos_prova/anexos_prova';
         $seed = [
-            [1, 1, 'Foto 1', 'Rio de Janeiro', $support . '/fotografias/foto1.jpg'],
-            [2, 1, 'Foto 2', 'Rio de Janeiro', $support . '/fotografias/foto2.jpg'],
-            [3, 1, 'Foto 3', 'Rio de Janeiro', $support . '/fotografias/foto3.jpg'],
-            [4, 2, 'Foto 4', 'São Paulo', $support . '/fotografias/foto4.jpg'],
-            [5, 2, 'Foto 5', 'São Paulo', $support . '/fotografias/foto5.jpg'],
-            [6, 2, 'Foto 6', 'São Paulo', $support . '/fotografias/foto6.jpg'],
-            [7, 3, 'Foto 7', 'Salvador', $support . '/fotografias/foto7.jpg'],
-            [8, 3, 'Foto 8', 'Salvador', $support . '/fotografias/foto8.jpg'],
-            [9, 3, 'Foto 9', 'Salvador', $support . '/fotografias/foto9.jpg'],
+            [1, 1, 'Foto 1', 'Rio de Janeiro', 'assets/img/fotografias/foto1.jpg'],
+            [2, 1, 'Foto 2', 'Rio de Janeiro', 'assets/img/fotografias/foto2.jpg'],
+            [3, 1, 'Foto 3', 'Rio de Janeiro', 'assets/img/fotografias/foto3.jpg'],
+            [4, 2, 'Foto 4', 'São Paulo', 'assets/img/fotografias/foto4.jpg'],
+            [5, 2, 'Foto 5', 'São Paulo', 'assets/img/fotografias/foto5.jpg'],
+            [6, 2, 'Foto 6', 'São Paulo', 'assets/img/fotografias/foto6.jpg'],
+            [7, 3, 'Foto 7', 'Salvador', 'assets/img/fotografias/foto7.jpg'],
+            [8, 3, 'Foto 8', 'Salvador', 'assets/img/fotografias/foto8.jpg'],
+            [9, 3, 'Foto 9', 'Salvador', 'assets/img/fotografias/foto9.jpg'],
         ];
 
         $insert = $pdo->prepare('INSERT INTO publicacoes (id, id_fotografo, titulo, local_origem, caminho_imagem) VALUES (?, ?, ?, ?, ?)');
@@ -176,7 +174,7 @@ function buildMediaUrl(string $relativePath): string
         return $normalized;
     }
 
-    if (str_starts_with($normalized, '../') || str_starts_with($normalized, './') || str_starts_with($normalized, 'Estudante/')) {
+    if (str_starts_with($normalized, '../') || str_starts_with($normalized, './') || str_starts_with($normalized, 'Estudante/') || str_starts_with($normalized, 'assets/')) {
         // keep explicit support-root or project-root paths as they are
     } else {
         $supportPrefix = '../Estudante/anexos_prova/anexos_prova/';

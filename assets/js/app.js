@@ -159,9 +159,6 @@
     const button = document.getElementById('searchBtn');
 
     const runSearch = () => {
-      if (!window.SAEPVisionAuth.requireAuth()) {
-        return;
-      }
       state.filtro = (input.value || '').trim().replace(/^@/, '');
       state.somenteMeu = false;
       loadPublicacoes();

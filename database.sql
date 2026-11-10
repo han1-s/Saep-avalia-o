@@ -38,17 +38,36 @@ CREATE TABLE IF NOT EXISTS curtidas (
     CONSTRAINT fk_curtidas_publicacao FOREIGN KEY (id_publicacao) REFERENCES publicacoes(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOAD DATA INFILE 'backend/data/usuarios.csv'
+LOAD DATA LOCAL INFILE 'backend/data/usuarios.csv'
 INTO TABLE usuarios
 FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
-(id_usuario, nome, nome_usuario, email, senha, imagem_usuario, tipo, created_at, updated_at)
-SET senha = CASE WHEN senha = '' THEN NULL ELSE senha END;
+(@id_usuario, @nome, @nome_usuario, @email, @senha, @imagem_usuario, @tipo, @created_at, @updated_at)
+SET id_usuario = @id_usuario,
+    nome = @nome,
+    nome_usuario = @nome_usuario,
+    email = @email,
+    senha = TRIM(@senha),
+    imagem_usuario = CONCAT('assets/img/imagens_usuarios/', TRIM(@imagem_usuario)),
+    tipo = IF(TRIM(@tipo) = 'usuario', 'comum', TRIM(@tipo)),
+    created_at = TRIM(@created_at),
+    updated_at = TRIM(@updated_at);
+
+INSERT INTO publicacoes (id, id_fotografo, titulo, local_origem, caminho_imagem) VALUES
+    (1, 1, 'Foto 1', 'Rio de Janeiro', 'assets/img/fotografias/foto1.jpg'),
+    (2, 1, 'Foto 2', 'Rio de Janeiro', 'assets/img/fotografias/foto2.jpg'),
+    (3, 1, 'Foto 3', 'Rio de Janeiro', 'assets/img/fotografias/foto3.jpg'),
+    (4, 2, 'Foto 4', 'São Paulo', 'assets/img/fotografias/foto4.jpg'),
+    (5, 2, 'Foto 5', 'São Paulo', 'assets/img/fotografias/foto5.jpg'),
+    (6, 2, 'Foto 6', 'São Paulo', 'assets/img/fotografias/foto6.jpg'),
+    (7, 3, 'Foto 7', 'Salvador', 'assets/img/fotografias/foto7.jpg'),
+    (8, 3, 'Foto 8', 'Salvador', 'assets/img/fotografias/foto8.jpg'),
+    (9, 3, 'Foto 9', 'Salvador', 'assets/img/fotografias/foto9.jpg');
 
 -- Para reexecutar sem duplicar registros, use:
 -- TRUNCATE TABLE curtidas;
 -- TRUNCATE TABLE publicacoes;
 -- TRUNCATE TABLE usuarios;
--- LOAD DATA INFILE ...
+-- LOAD DATA LOCAL INFILE ...
