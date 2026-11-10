@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAEPVision</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="header-left">
+        <img id="userAvatar" class="avatar" src="/backend/media.php?path=imagens_usuarios/saepVision.jpeg" alt="Perfil" />
+        <span id="userName" class="user-name">@SAEPVision</span>
+        <button id="profileBtn" class="profile-btn" disabled>Ver Perfil</button>
+      </div>
+
+      <div class="brand">SAEPVision</div>
+
+      <div class="header-right">
+        <button id="loginBtn" class="primary-btn">Login</button>
+      </div>
+    </header>
+
+    <section class="search-section">
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="Digite o nome do fotógrafo... ex: @fotografo1" />
+        <button id="searchBtn" type="button" aria-label="Buscar fotógrafo">
+          <img src="assets/icons/lupa.svg" alt="Buscar" />
+        </button>
+      </div>
+      <div id="searchMessage" class="search-message" aria-live="polite"></div>
+    </section>
+
+    <main class="page-content">
+      <div id="gallery" class="gallery" aria-live="polite"></div>
+    </main>
+
+    <aside id="profileSidebar" class="profile-sidebar closed" aria-label="Painel do fotógrafo">
+      <button id="closeSidebarBtn" type="button" class="close-btn" aria-label="Fechar panel">&times;</button>
+
+      <div class="sidebar-stats">
+        <div class="stat-card">
+          <span id="totalLikes">0</span>
+          <small>Likes</small>
+        </div>
+        <div class="stat-card">
+          <span id="totalPublicacoes">0</span>
+          <small>Publicações</small>
+        </div>
+      </div>
+
+      <button id="myPostsBtn" type="button" class="secondary-btn">Suas publicações</button>
+
+      <form id="photoForm" class="photo-form">
+        <div class="field">
+          <label for="tituloFoto">Título da Imagem</label>
+          <input id="tituloFoto" name="titulo" type="text" placeholder="entrada de texto livre. ex.: Dedo de Deus" />
+          <small class="field-error" data-error-for="titulo"></small>
+        </div>
+
+        <div class="field">
+          <label for="localOrigem">Fonte de origem</label>
+          <input id="localOrigem" name="local_origem" type="text" placeholder="entrada de texto livre. ex.: Rio de Janeiro" />
+          <small class="field-error" data-error-for="local_origem"></small>
+        </div>
+
+        <div class="field upload-field">
+          <label for="imagemUpload">Imagem</label>
+          <label class="file-label" for="imagemUpload">Escolher arquivo</label>
+          <input id="imagemUpload" name="imagem" type="file" accept=".jpg,.jpeg,.png,.gif,.webp" />
+          <small id="fileNameDisplay">Nenhum arquivo escolhido</small>
+          <small class="field-error" data-error-for="imagem"></small>
+        </div>
+
+        <button id="submitPhotoBtn" type="submit" class="primary-btn full-width">Cadastrar</button>
+      </form>
+    </aside>
+
+    <div id="loginModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal="true"></div>
+      <div class="modal-card auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <button id="closeModalBtn" type="button" class="modal-close" aria-label="Fechar modal">&times;</button>
+
+        <div id="authModeLogin" class="auth-mode">
+          <h2 id="authTitle">Login</h2>
+          <form id="loginForm" class="login-form">
+            <div class="field">
+              <input id="emailInput" name="email" type="email" placeholder="Digite seu e-mail" />
+              <small class="field-error" data-error-for="email"></small>
+            </div>
+
+            <div class="field">
+              <input id="senhaInput" name="password" type="password" placeholder="Digite sua senha" />
+              <small class="field-error" data-error-for="password"></small>
+            </div>
+
+            <div class="modal-actions">
+              <button type="button" id="cancelLoginBtn" class="secondary-outline-btn">Cancelar</button>
+              <button type="submit" class="primary-btn">Entrar</button>
+            </div>
+            <div id="loginErrorMessage" class="login-error" aria-live="polite"></div>
+          </form>
+
+          <div class="auth-switch">
+            <span>Não tem conta?</span>
+            <button type="button" id="showRegisterBtn" class="text-btn">Cadastre-se</button>
+          </div>
+        </div>
+
+        <div id="authModeRegister" class="auth-mode hidden">
+          <h2>Criar conta</h2>
+          <form id="registerForm" class="register-form">
+            <div class="field">
+              <input id="nomeInput" name="nome" type="text" placeholder="Seu nome completo" />
+              <small class="field-error" data-error-for="nome"></small>
+            </div>
+
+            <div class="field">
+              <input id="nomeUsuarioInput" name="nome_usuario" type="text" placeholder="Nome de usuário (ex.: @anafotografa)" />
+              <small class="field-error" data-error-for="nome_usuario"></small>
+            </div>
+
+            <div class="field">
+              <input id="registerEmailInput" name="email" type="email" placeholder="Seu e-mail" />
+              <small class="field-error" data-error-for="email_registro"></small>
+            </div>
+
+            <div class="field">
+              <select id="tipoInput" name="tipo" class="auth-select">
+                <option value="comum">Quero seguir como usuário</option>
+                <option value="fotografo">Quero publicar fotos</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <input id="registerSenhaInput" name="password" type="password" placeholder="Crie uma senha" />
+              <small class="field-error" data-error-for="password_registro"></small>
+            </div>
+
+            <div class="field">
+              <input id="confirmSenhaInput" name="confirm_password" type="password" placeholder="Confirme a senha" />
+              <small class="field-error" data-error-for="confirm_password"></small>
+            </div>
+
+            <div class="modal-actions">
+              <button type="button" id="cancelRegisterBtn" class="secondary-outline-btn">Cancelar</button>
+              <button type="submit" class="primary-btn">Cadastrar</button>
+            </div>
+            <div id="registerErrorMessage" class="register-error" aria-live="polite"></div>
+          </form>
+
+          <div class="auth-switch">
+            <span>Já tem conta?</span>
+            <button type="button" id="showLoginBtn" class="text-btn">Entrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-left">SAEPVision</div>
+      <div class="footer-center">
+        <img src="assets/icons/instagram.svg" alt="Instagram" />
+        <img src="assets/icons/tiktok.svg" alt="TikTok" />
+        <img src="assets/icons/linkedin.svg" alt="LinkedIn" />
+        <img src="assets/icons/youtube.svg" alt="YouTube" />
+      </div>
+      <div class="footer-right">Copyright 2026-2027</div>
+    </footer>
+
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
